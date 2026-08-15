@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>My 3D Website</title>
+
+
+<style>
+
+/* =====================================================
+   BASIC RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:#030405;
+
+    color:white;
+
+    overflow-x:hidden;
+
+}
+
+
+/* =====================================================
+   ANIMATED BACKGROUND
+===================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    left:-200px;
+    top:100px;
+
+    background:#ff6a00;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.12;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    right:-200px;
+    bottom:50px;
+
+    background:#00d084;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.12;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+nav{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+    0 7%;
+
+    background:
+    rgba(0,0,0,.65);
+
+    backdrop-filter:
+    blur(18px);
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.1);
+
+    z-index:1000;
+
+}
+
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #ff7b00,
+        white,
+        #00d084
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+.nav-links{
+
+    display:flex;
+
+    gap:28px;
+
+    list-style:none;
+
+}
+
+
+.nav-links a{
+
+    color:#ddd;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+
+.nav-links a:hover{
+
+    color:#ff8a00;
+
+}
+
+
+/* MOBILE MENU BUTTON */
+
+.menu{
+
+    display:none;
+
+    font-size:27px;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    min-height:100vh;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+    110px 20px
+    70px;
+
+    overflow:hidden;
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        #15324a 0%,
+        #08111c 40%,
+        #030405 80%
+    );
+
+}
+
+
+.hero-content{
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:850px;
+
+}
+
+
+.badge{
+
+    display:inline-block;
+
+    padding:
+    8px 18px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,.07);
+
+    border:
+    1px solid
+    rgba(255,255,255,.15);
+
+    color:#ccc;
+
+    font-size:13px;
+
+    margin-bottom:20px;
+
+}
+
+
+.hero h1{
+
+    font-size:
+    clamp(
+        50px,
+        12vw,
+        115px
+    );
+
+    line-height:.9;
+
+    letter-spacing:-5px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff7900,
+        #fff,
+        #00c853
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+    heroFloat 4s
+    ease-in-out
+    infinite;
+
+}
+
+
+.hero h2{
+
+    font-size:
+    clamp(
+        20px,
+        5vw,
+        38px
+    );
+
+    margin-top:25px;
+
+}
+
+
+.hero p{
+
+    max-width:620px;
+
+    margin:
+    18px auto;
+
+    color:#aaa;
+
+    line-height:1.7;
+
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:
+    14px 30px;
+
+    border-radius:30px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff7900,
+        #ff3d00
+    );
+
+    box-shadow:
+    0 10px 30px
+    rgba(255,90,0,.25);
+
+    transition:.3s;
+
+}
+
+
+.btn:hover{
+
+    transform:
+    translateY(-5px)
+    scale(1.04);
+
+    box-shadow:
+    0 15px 40px
+    rgba(255,90,0,.4);
+
+}
+
+
+@keyframes heroFloat{
+
+    50%{
+
+        transform:
+        translateY(-10px);
+
+    }
+
+}
+
+
+/* =====================================================
+   3D CUBE
+===================================================== */
+
+.scene{
+
+    position:absolute;
+
+    right:7%;
+
+    bottom:13%;
+
+    width:160px;
+
+    height:160px;
+
+    perspective:700px;
+
+    z-index:2;
+
+}
+
+
+.cube{
+
+    width:100%;
+    height:100%;
+
+    position:relative;
+
+    transform-style:
+    preserve-3d;
+
+    animation:
+    cubeRotate
+    10s
+    linear
+    infinite;
+
+}
+
+
+.face{
+
+    position:absolute;
+
+    width:160px;
+    height:160px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.3);
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(255,120,0,.25),
+        rgba(0,200,100,.12)
+    );
+
+    backdrop-filter:
+    blur(4px);
+
+}
+
+
+.front{
+    transform:
+    translateZ(80px);
+}
+
+.back{
+    transform:
+    rotateY(180deg)
+    translateZ(80px);
+}
+
+.right{
+    transform:
+    rotateY(90deg)
+    translateZ(80px);
+}
+
+.left{
+    transform:
+    rotateY(-90deg)
+    translateZ(80px);
+}
+
+.top{
+    transform:
+    rotateX(90deg)
+    translateZ(80px);
+}
+
+.bottom{
+    transform:
+    rotateX(-90deg)
+    translateZ(80px);
+}
+
+
+@keyframes cubeRotate{
+
+    from{
+
+        transform:
+        rotateX(0)
+        rotateY(0)
+        rotateZ(0);
+
+    }
+
+    to{
+
+        transform:
+        rotateX(360deg)
+        rotateY(360deg)
+        rotateZ(180deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section{
+
+    padding:
+    100px 7%;
+
+}
+
+
+.section-title{
+
+    text-align:center;
+
+    font-size:
+    clamp(
+        30px,
+        7vw,
+        48px
+    );
+
+    margin-bottom:50px;
+
+}
+
+
+.section-title span{
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff7900,
+        #00d084
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+/* =====================================================
+   FEATURE CARDS
+===================================================== */
+
+.cards{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(220px,1fr)
+    );
+
+    gap:25px;
+
+}
+
+
+.card{
+
+    min-height:240px;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.02)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.1);
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    transform-style:
+    preserve-3d;
+
+}
+
+
+.card:hover{
+
+    transform:
+    translateY(-12px)
+    rotateX(5deg)
+    rotateY(-5deg);
+
+    border-color:
+    #ff7900;
+
+    box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.5);
+
+}
+
+
+.card:active{
+
+    transform:
+    scale(.96);
+
+}
+
+
+.icon{
+
+    font-size:50px;
+
+    margin-bottom:20px;
+
+}
+
+
+.card h3{
+
+    font-size:23px;
+
+    margin-bottom:10px;
+
+}
+
+
+.card p{
+
+    color:#999;
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about{
+
+    background:
+    rgba(255,255,255,.015);
+
+}
+
+
+.about-box{
+
+    max-width:850px;
+
+    margin:auto;
+
+    padding:45px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(255,120,0,.08),
+        rgba(0,200,100,.05)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.1);
+
+}
+
+
+.about-box p{
+
+    color:#aaa;
+
+    line-height:1.9;
+
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact{
+
+    text-align:center;
+
+}
+
+
+.form{
+
+    max-width:600px;
+
+    margin:auto;
+
+}
+
+
+.form input,
+.form textarea{
+
+    display:block;
+
+    width:100%;
+
+    margin:
+    15px 0;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:#111;
+
+    color:white;
+
+    border:
+    1px solid
+    #222;
+
+}
+
+
+.form textarea{
+
+    height:140px;
+
+    resize:none;
+
+}
+
+
+.form input:focus,
+.form textarea:focus{
+
+    border-color:#ff7900;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    text-align:center;
+
+    padding:35px 20px;
+
+    color:#666;
+
+    border-top:
+    1px solid #151515;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+    rgba(0,0,0,.8);
+
+    backdrop-filter:
+    blur(15px);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:5000;
+
+}
+
+
+.popup.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+.popup-box{
+
+    width:100%;
+
+    max-width:430px;
+
+    padding:40px 30px;
+
+    text-align:center;
+
+    border-radius:28px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #171717,
+        #070707
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.15);
+
+    box-shadow:
+    0 30px 100px
+    rgba(0,0,0,.8);
+
+    transform:
+    scale(.7)
+    translateY(30px);
+
+    transition:.4s;
+
+}
+
+
+.popup.active
+.popup-box{
+
+    transform:
+    scale(1)
+    translateY(0);
+
+}
+
+
+.close{
+
+    position:absolute;
+
+    margin-left:145px;
+
+    margin-top:-25px;
+
+    width:38px;
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#222;
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+}
+
+
+.popup-icon{
+
+    font-size:65px;
+
+    margin-bottom:15px;
+
+}
+
+
+.popup-box h2{
+
+    font-size:30px;
+
+    margin-bottom:15px;
+
+}
+
+
+.popup-box p{
+
+    color:#aaa;
+
+    line-height:1.7;
+
+}
+
+
+.popup-button{
+
+    margin-top:25px;
+
+    padding:
+    12px 28px;
+
+    border:none;
+
+    border-radius:25px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff7900,
+        #00b85a
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal{
+
+    opacity:0;
+
+    transform:
+    translateY(50px);
+
+    transition:
+    opacity .8s,
+    transform .8s;
+
+}
+
+
+.reveal.show{
+
+    opacity:1;
+
+    transform:
+    translateY(0);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    nav{
+
+        height:65px;
+
+        padding:
+        0 5%;
+
+    }
+
+
+    .nav-links{
+
+        display:none;
+
+        position:absolute;
+
+        top:65px;
+
+        left:0;
+
+        width:100%;
+
+        padding:25px;
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:20px;
+
+        background:
+        rgba(0,0,0,.95);
+
+    }
+
+
+    .nav-links.open{
+
+        display:flex;
+
+    }
+
+
+    .menu{
+
+        display:block;
+
+    }
+
+
+    .hero{
+
+        padding-top:100px;
+
+    }
+
+
+    .hero h1{
+
+        letter-spacing:-3px;
+
+    }
+
+
+    .scene{
+
+        width:85px;
+
+        height:85px;
+
+        right:4%;
+
+        bottom:9%;
+
+        opacity:.7;
+
+    }
+
+
+    .face{
+
+        width:85px;
+
+        height:85px;
+
+    }
+
+
+    .front{
+        transform:
+        translateZ(42.5px);
+    }
+
+    .back{
+        transform:
+        rotateY(180deg)
+        translateZ(42.5px);
+    }
+
+    .right{
+        transform:
+        rotateY(90deg)
+        translateZ(42.5px);
+    }
+
+    .left{
+        transform:
+        rotateY(-90deg)
+        translateZ(42.5px);
+    }
+
+    .top{
+        transform:
+        rotateX(90deg)
+        translateZ(42.5px);
+    }
+
+    .bottom{
+        transform:
+        rotateX(-90deg)
+        translateZ(42.5px);
+    }
+
+
+    section{
+
+        padding:
+        80px 6%;
+
+    }
+
+
+    .card{
+
+        min-height:210px;
+
+    }
+
+
+    .about-box{
+
+        padding:30px 20px;
+
+    }
+
+
+    .close{
+
+        margin-left:125px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        MY WEBSITE
+    </div>
+
+
+    <ul class="nav-links" id="navLinks">
+
+        <li>
+            <a href="#home">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="#features">
+                Features
+            </a>
+        </li>
+
+        <li>
+            <a href="#about">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="#contact">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+
+    <div
+    class="menu"
+    onclick="toggleMenu()">
+
+        ☰
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+class="hero"
+id="home">
+
+
+    <div class="hero-content">
+
+
+        <div class="badge">
+
+            ✨ WELCOME TO MY WEBSITE
+
+        </div>
+
+
+        <h1>
+
+            HELLO
+
+        </h1>
+
+
+        <h2>
+
+            Welcome to My 3D World
+
+        </h2>
+
+
+        <p>
+
+            A fast, responsive, modern and
+            completely customizable website
+            designed especially for mobile and
+            desktop.
+
+        </p>
+
+
+        <a
+        href="#features"
+        class="btn">
+
+            Explore Now →
+
+        </a>
+
+
+    </div>
+
+
+    <!-- 3D CUBE -->
+
+    <div class="scene">
+
+        <div class="cube">
+
+            <div class="face front"></div>
+
+            <div class="face back"></div>
+
+            <div class="face right"></div>
+
+            <div class="face left"></div>
+
+            <div class="face top"></div>
+
+            <div class="face bottom"></div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+id="features"
+class="reveal">
+
+
+    <h2 class="section-title">
+
+        Powerful
+        <span>Features</span>
+
+    </h2>
+
+
+    <div class="cards">
+
+
+        <!-- FAST -->
+
+        <div
+        class="card"
+        onclick="openFeature('fast')">
+
+            <div class="icon">
+                🚀
+            </div>
+
+            <h3>
+                Fast
+            </h3>
+
+            <p>
+                Click to discover
+            </p>
+
+        </div>
+
+
+        <!-- RESPONSIVE -->
+
+        <div
+        class="card"
+        onclick="openFeature('responsive')">
+
+            <div class="icon">
+                📱
+            </div>
+
+            <h3>
+                Responsive
+            </h3>
+
+            <p>
+                Click to discover
+            </p>
+
+        </div>
+
+
+        <!-- MODERN -->
+
+        <div
+        class="card"
+        onclick="openFeature('modern')">
+
+            <div class="icon">
+                ✨
+            </div>
+
+            <h3>
+                Modern
+            </h3>
+
+            <p>
+                Click to discover
+            </p>
+
+        </div>
+
+
+        <!-- CUSTOM -->
+
+        <div
+        class="card"
+        onclick="openFeature('custom')">
+
+            <div class="icon">
+                🎨
+            </div>
+
+            <h3>
+                Custom
+            </h3>
+
+            <p>
+                Click to discover
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+class="about reveal"
+id="about">
+
+
+    <h2 class="section-title">
+
+        About
+        <span>Website</span>
+
+    </h2>
+
+
+    <div class="about-box">
+
+        <p>
+
+            This website is built using pure
+            HTML, CSS and JavaScript.
+
+            It doesn't require any complicated
+            software or framework.
+
+            You can edit the text, colors,
+            animations, buttons and sections
+            directly inside Acode.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+class="contact reveal"
+id="contact">
+
+
+    <h2 class="section-title">
+
+        Contact
+        <span>Me</span>
+
+    </h2>
+
+
+    <div class="form">
+
+
+        <input
+        type="text"
+        id="name"
+        placeholder="Your Name">
+
+
+        <input
+        type="email"
+        id="email"
+        placeholder="Your Email">
+
+
+        <textarea
+        id="message"
+        placeholder="Your Message">
+        </textarea>
+
+
+        <button
+        class="btn"
+        onclick="sendMessage()">
+
+            Send Message
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    © 2026 My Website
+
+    <br><br>
+
+    Made with ❤️ using HTML, CSS & JavaScript
+
+</footer>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+class="popup"
+id="popup"
+onclick="outsideClose(event)">
+
+
+    <div class="popup-box">
+
+
+        <button
+        class="close"
+        onclick="closeFeature()">
+
+            ×
+
+        </button>
+
+
+        <div
+        class="popup-icon"
+        id="popupIcon">
+
+            🚀
+
+        </div>
+
+
+        <h2
+        id="popupTitle">
+
+            Fast
+
+        </h2>
+
+
+        <p
+        id="popupText">
+
+            Your website is fast.
+
+        </p>
+
+
+        <button
+        class="popup-button"
+        onclick="closeFeature()">
+
+            Got It ✓
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navLinks")
+    .classList
+    .toggle("open");
+
+}
+
+
+/* Close mobile menu */
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(link=>{
+
+    link.addEventListener(
+        "click",
+        ()=>{
+            document
+            .getElementById("navLinks")
+            .classList
+            .remove("open");
+        }
+    );
+
+});
+
+
+/* =====================================================
+   FEATURE DATA
+===================================================== */
+
+const features={
+
+
+    fast:{
+
+        icon:"🚀",
+
+        title:"Fast",
+
+        text:
+        "This website is designed to be lightweight and fast. It uses simple HTML, CSS and JavaScript so it can run smoothly on mobile devices."
+
+    },
+
+
+    responsive:{
+
+        icon:"📱",
+
+        title:"Responsive",
+
+        text:
+        "The website automatically adapts to different screen sizes. It works on phones, tablets and computers."
+
+    },
+
+
+    modern:{
+
+        icon:"✨",
+
+        title:"Modern",
+
+        text:
+        "Modern gradients, glass effects, animations, 3D elements and smooth transitions create a premium appearance."
+
+    },
+
+
+    custom:{
+
+        icon:"🎨",
+
+        title:"Custom",
+
+        text:
+        "Everything can be customized. Change the colors, text, buttons, animations, sections and design directly in Acode."
+
+    }
+
+};
+
+
+/* =====================================================
+   OPEN FEATURE
+===================================================== */
+
+function openFeature(type){
+
+    const data=
+    features[type];
+
+
+    document
+    .getElementById("popupIcon")
+    .textContent=
+    data.icon;
+
+
+    document
+    .getElementById("popupTitle")
+    .textContent=
+    data.title;
+
+
+    document
+.getElementById("popupText")
+.textContent =
+data.text;
+
+
+document
+.getElementById("popup")
+.classList
+.add("active");
+
+}
+
+
+/* =====================================================
+   CLOSE FEATURE POPUP
+===================================================== */
+
+function closeFeature(){
+
+    document
+    .getElementById("popup")
+    .classList
+    .remove("active");
+
+}
+
+
+/* =====================================================
+   CLOSE WHEN CLICKING OUTSIDE
+===================================================== */
+
+function outsideClose(event){
+
+    if(
+        event.target.id ===
+        "popup"
+    ){
+
+        closeFeature();
+
+    }
+
+}
+
+
+/* =====================================================
+   CONTACT FORM
+===================================================== */
+
+function sendMessage(){
+
+    const name =
+    document
+    .getElementById("name")
+    .value
+    .trim();
+
+
+    const email =
+    document
+    .getElementById("email")
+    .value
+    .trim();
+
+
+    const message =
+    document
+    .getElementById("message")
+    .value
+    .trim();
+
+
+    if(
+        name === "" ||
+        email === "" ||
+        message === ""
+    ){
+
+        alert(
+            "Please fill in all fields."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Thank you, " +
+        name +
+        "! Your message has been submitted."
+    );
+
+
+    document
+    .getElementById("name")
+    .value = "";
+
+
+    document
+    .getElementById("email")
+    .value = "";
+
+
+    document
+    .getElementById("message")
+    .value = "";
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements =
+document.querySelectorAll(".reveal");
+
+
+const observer =
+new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(
+                entry.isIntersecting
+            ){
+
+                entry
+                .target
+                .classList
+                .add("show");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold:0.15
+    }
+
+);
+
+
+revealElements.forEach(element => {
+
+    observer.observe(element);
+
+});
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeFeature();
+
+        }
+
+    }
+);
+
+
+</script>
+
+</body>
+
+</html>
